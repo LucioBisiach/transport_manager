@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+<!-- VISTA Employee -->
+
+    <record id="employee_services_tree" model="ir.ui.view">
+        <field name="name">employee.services.tree</field>
+        <field name="model">employee.services</field>
+        <field name="arch" type="xml">
+            <tree string="Lista de Empleados">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Formulario -->
+    <record id="employee_services_form" model="ir.ui.view">
+        <field name="name">employee.services.form</field>
+        <field name="model">employee.services</field>
+        <field name="arch" type="xml">
+            <form string="Empleados">
+
+                <sheet string="Empleados">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="return_action_to_open_libro_mayor"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o"
+                            context="{'xml_id':'action_account_moves_ledger_general'}"
+                            help="Visualiza el estado de cuenta del empleado actual">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Cuenta
+                                </span>
+                            </div>
+                        </button>
+                        <button name="return_action_to_open_transferencia"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-usd"
+                            context="{'xml_id':'action_account_payments_transfer'}"
+                            help="Visualiza las transferencias o depósitos hechos al empleado">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Pagos
+                                </span>
+                            </div>
+                        </button>
+                        <button name="return_action_to_open_gastos"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-shopping-cart"
+                            context="{'xml_id':'action_move_in_invoice_type', 'search_default_group_by_account': 1}"
+                            help="Visualiza los gastos del empleado">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Gastos
+                                </span>
+                            </div>
+                        </button>
+                      <button name="return_action_to_open"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-history"
+                            context="{'xml_id':'action_tms_services'}"
+                            help="Muestra todos los servicios realizados por el empleado">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Servicios
+                                </span>
+                            </div>
+                        </button>  
+                        <button name="return_action_to_open"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-history"
+                            context="{'xml_id':'action_sueldos_employee_services'}"
+                            help="Muestra los servicios mensuales por empleado (Recibo de Sueldo)">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Servicios Mensuales
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <div>
+                        <h2>
+                            <field name="name" decoration-bf="name"/>
+                        </h2>
+                    </div>
+                    <notebook>
+                        <page string="Datos Personales">
+                            <group>
+                                <group string="Personales">
+                                    <field name="telefono" string="Telefono"/>
+                                    <field name="direccion" string="Domicilio"/>
+                                    <field name="localidad" string="Localidad"/>
+                                    <field name="n_identifiacion" string="CUIL/CUIT/DNI"/>
+                                    <field name="email" string="Email"/>
+                                </group>
+                                <group string="Cuentas / Banco">
+                                    <field name="cbu" string="CBU"/>
+                                    <field name="banco" string="Banco"/>
+                                    <field name="ref_diario" string="Diario"/>
+                                </group>
+                            </group>
+
+                        </page>
+                        <page string="Documentacion">
+                            <group string="Documentos">
+                                <!-- <field name=""/> -->
+                            </group>
+                        </page>                    
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_employee_services" model="ir.actions.act_window">
+        <field name="name">Empleados</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.services</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear Empleado !
+            </p>
+        </field>
+    </record>
+
+    
+
+<!-- Vista Empleados tercerizados -->
+
+    <record id="third_employee_services_tree" model="ir.ui.view">
+        <field name="name">third.employee.services.tree</field>
+        <field name="model">third.employee.services</field>
+        <field name="arch" type="xml">
+            <tree string="Lista de Choferes Tercerizados">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Formulario -->
+    <record id="third_employee_services_form" model="ir.ui.view">
+        <field name="name">third.employee.services.form</field>
+        <field name="model">third.employee.services</field>
+        <field name="arch" type="xml">
+            <form string="Chfoer Tercerizado">
+
+                <sheet string="Chofer Tercerizado">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="return_action_to_open"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-history"
+                            context="{'xml_id':'action_tms_services'}"
+                            help="Servicios">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Servicios
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <div>
+                        <h2>
+                            <field name="name" decoration-bf="name"/>
+                        </h2>
+                    </div>
+                    <group string="Personales">
+                        <field name="pertenece_a"/>
+                        <field name="telefono" string="Telefono"/>
+                        <field name="n_identifiacion" string="CUIL/CUIT/DNI"/>
+                        <field name="email" string="Email"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_third_employee_services" model="ir.actions.act_window">
+        <field name="name">Empleados</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">third.employee.services</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear Empleado !
+            </p>
+        </field>
+    </record>
+
+
+
+<!-- Vista Sueldos Empleados -->
+
+    <record id="sueldos_employee_services_tree" model="ir.ui.view">
+        <field name="name">sueldos.employee.services.tree</field>
+        <field name="model">sueldos.employee.services</field>
+        <field name="arch" type="xml">
+            <tree string="Resumen mensual por empleado">
+                <field name="name"/>
+                <field name="employee"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Formulario -->
+    <record id="sueldos_employee_services_form" model="ir.ui.view">
+        <field name="name">sueldos.employee.services.form</field>
+        <field name="model">sueldos.employee.services</field>
+        <field name="arch" type="xml">
+            <form string="Resumen mensual por empleado">
+                <sheet string="Resumen mensual por empleado">
+                    <div>
+                        <h2>
+                            <field name="name" decoration-bf="name" placeholder="Mes"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <field name="employee"/>
+                        <field name="date_start"/>
+                        <field name="date_stop"/>
+                    </group>
+                    <group>
+                        <field name="lista_servicios" nolabel="1" >
+                            <tree string="Servicios" editable="buttom">
+                                <field name="name"/>
+                                <field name="label_service"/>
+                                <field name="customer"/>
+                                <field name="date_start"/>
+                                <field name="date_stop"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right" colspan="6">
+                        <group class="oe_subtotal_footer oe_right" colspan="4" >
+                            <field name="tot_viatico_comida" string="Tot"/>
+                            <field name="tot_viatico_especial" string="Tot"/>
+                            <field name="tot_viatico_km" string="Tot"/>
+                        </group>
+                        <group class="oe_subtotal_footer oe_right" colspan="2">
+                            <field name="qty_viatico_comida"/>
+                            <field name="qty_viatico_especial"/>
+                            <field name="qty_viatico_km"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_sueldos_employee_services" model="ir.actions.act_window">
+        <field name="name">Resumen mensual por empleado</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sueldos.employee.services</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear Resumen Mensual !
+            </p>
+        </field>
+    </record>
+
+
+</odoo>

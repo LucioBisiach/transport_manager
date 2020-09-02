@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="requisito_art" model="requirement.document.service">
+        <field name="name">ART</field>
+    </record>
+
+    <record id="requisito_cnr_art" model="requirement.document.service">
+        <field name="name">Clausula no Repeticion ART</field>
+    </record>
+
+        <record id="requisito_svo" model="requirement.document.service">
+        <field name="name">SVO</field>
+    </record>
+
+        <record id="requisito_cnr_svo" model="requirement.document.service">
+        <field name="name">Clausula no Repeticion SVO</field>
+    </record>
+
+        <record id="requisito_afip" model="requirement.document.service">
+        <field name="name">913</field>
+    </record>
+
+        <record id="requisito_seguro_flota" model="requirement.document.service">
+        <field name="name">Seguro Flota</field>
+    </record>
+
+        <record id="requisito_seguro_flota_pago" model="requirement.document.service">
+        <field name="name">Pago Seguro Flota</field>
+    </record>
+
+        <record id="requisito_iibb" model="requirement.document.service">
+        <field name="name">IIBB</field>
+    </record>
+
+
+</odoo>

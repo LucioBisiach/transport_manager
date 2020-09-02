@@ -1,0 +1,54 @@
+<odoo>
+    <!-- Menu elements -->
+    <menuitem id="tms_root" name="TMS" sequence="0"/>
+
+        <menuitem id="tms_menu_services" name="Servicios" parent="tms_root" sequence="0"/>
+
+            <menuitem id="tms_action_services" name="Lista de Servicios" parent="tms_menu_services" action="action_tms_services" />
+
+            <menuitem id="tms_action_services_document" name="Documentos del Servicios" parent="tms_menu_services" action="action_tms_services_documents" />
+
+
+        <menuitem id="tms_menu_services_empleados" name="Empleados" parent="tms_root" sequence="1"/>
+
+            <menuitem id="tms_menu_services_empleados_label" name="Propios" parent="tms_menu_services_empleados"/>
+
+                <menuitem id="tms_action_services_employee" name="Empleados" parent="tms_menu_services_empleados_label" action="action_employee_services" />
+                
+                <menuitem id="tms_action_services_employee_sueldos" name="Resumen Mensual" parent="tms_menu_services_empleados_label" action="action_sueldos_employee_services" />
+
+
+            <menuitem id="tms_menu_services_empleados_third_label" name="Tercerizados" parent="tms_menu_services_empleados"/>
+
+                <menuitem id="tms_action_services_third_employee" name="Chofer Tercerizado" parent="tms_menu_services_empleados_third_label" action="action_third_employee_services" />
+
+
+        <menuitem id="tms_menu_services_flota" name="Flota" parent="tms_root" sequence="2"/>
+
+            <menuitem id="tms_menu_services_flota_label" name="Propios" parent="tms_menu_services_flota"/>
+
+                <menuitem id="tms_action_services_fleet" name="Flota" parent="tms_menu_services_flota" action="action_fleet_services" />
+
+            <menuitem id="tms_menu_services_flota_third_label" name="Tercerizados" parent="tms_menu_services_flota"/>
+
+                <menuitem id="tms_action_services_third_fleet" name="Flota Tercerizada" parent="tms_menu_services_flota" action="action_third_fleet_services" />
+
+
+
+        <menuitem id="tms_menu_services_config" name="Configuración" parent="tms_root" sequence="5"/>
+
+            <menuitem id="tms_label_setting_servicios" name="Servicios" parent="tms_menu_services_config" />
+
+                <menuitem id="tms_action_setting_servicios_places" name="Direcciones" parent="tms_label_setting_servicios" action="action_tms_service_places"/>
+                
+                <menuitem id="tms_action_setting_servicios_requisitos" name="Requisitos" parent="tms_label_setting_servicios" action="action_tms_requirement_document_service" />
+                
+            <menuitem id="tms_label_setting_flota" name="Flota" parent="tms_menu_services_config" />
+
+                <menuitem id="tms_action_setting_flota_tipo" name="Tipo de Flota" parent="tms_label_setting_flota" action="action_tms_type_fleet_services" />
+
+            <menuitem id="tms_label_setting_employee" name="Sueldos" parent="tms_menu_services_config" />
+
+                <menuitem id="tms_action_setting_lista_tarifas" name="Lista de Tarifas" parent="tms_label_setting_employee" action="action_employee_services_sueldos_tarifas"/>
+
+</odoo>

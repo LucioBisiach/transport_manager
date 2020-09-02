@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+<!-- VISTA Flota -->
+
+    <record id="fleet_services_tree" model="ir.ui.view">
+        <field name="name">fleet.services.tree</field>
+        <field name="model">fleet.services</field>
+        <field name="arch" type="xml">
+            <tree string="Lista de Flota">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Formulario -->
+    <record id="fleet_services_form" model="ir.ui.view">
+        <field name="name">fleet.services.form</field>
+        <field name="model">fleet.services</field>
+        <field name="arch" type="xml">
+            <form string="Flota">
+                <sheet string="Flota">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="return_action_to_open"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-history"
+                            context="{'xml_id':'action_tms_services'}"
+                            help="Servicios">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Servicios
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <div>
+                        <h2>
+                            <field name="name" decoration-bf="name" placeholder="Dominio" string="Dominio"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="Datos">
+                            <field name="marca" string="Marca"/>
+                            <field name="modelo" string="Modelo"/>
+                            <field name="año" string="Año"/>
+                        </group>
+                        <group string="Odometro">
+                            <field name="odometro_actual" string="Odometro actual"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_fleet_services" model="ir.actions.act_window">
+        <field name="name">Flota</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.services</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear Flota !
+            </p>
+        </field>
+    </record>
+
+
+    
+
+<!-- VISTA Flota Tercerizada-->
+
+    <record id="third_fleet_services_tree" model="ir.ui.view">
+        <field name="name">third.fleet.services.tree</field>
+        <field name="model">third.fleet.services</field>
+        <field name="arch" type="xml">
+            <tree string="Lista de Flota Tercerizada">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Formulario -->
+    <record id="third_fleet_services_form" model="ir.ui.view">
+        <field name="name">third.fleet.services.form</field>
+        <field name="model">third.fleet.services</field>
+        <field name="arch" type="xml">
+            <form string="Flota Tercerizada">
+                <sheet string="Tercerizada Flota">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="return_action_to_open"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-history"
+                            context="{'xml_id':'action_tms_services'}"
+                            help="Servicios">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Servicios
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <div>
+                        <h2>
+                            <field name="name" decoration-bf="name" placeholder="Dominio"/>
+                        </h2>
+                    </div>
+                    <group string="Personales">
+                        <field name="pertenece_a"/>
+                        <field name="tipo"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_third_fleet_services" model="ir.actions.act_window">
+        <field name="name">Flota</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">third.fleet.services</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear Flota Tercerizada!
+            </p>
+        </field>
+    </record>
+
+
+</odoo>

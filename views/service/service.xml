@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="tms_services_tree" model="ir.ui.view">
+        <field name="name">tms.services.tree</field>
+        <field name="model">service.services</field>
+        <field name="arch" type="xml">
+            <tree string="Lista de Servicios" decoration-danger="state_document==False or state_inv_s==False or state_inv_p==False" decoration-success="state_document==True and state_inv_s==True and state_inv_p==True" default_order="date_start desc, date_stop asc">
+                <field name="name" string="N° Servicio"/>
+                <field name="label_service"/>
+                <field name="customer"/>
+                <field name="provider"/>
+                <field name="location_load" widget="many2many_tags"/>
+                <field name="location_download" widget="many2many_tags"/>
+                <field name="date_start" string="Inicio" widget="date"/>
+                <field name="date_stop" string="Fin" widget="date"/>
+                <field name="n_ref" string="N° Ref"/>
+                <field name="state_document" string="Doc"/>
+                <field name="state_inv_s" string="FA V"/>
+                <field name="state_inv_p" string="FA C"/>            
+            </tree>
+        </field>
+    </record>
+
+
+
+    <!-- Vista Formulario -->
+    <record id="tms_services_form" model="ir.ui.view">
+        <field name="name">tms.services.form</field>
+        <field name="model">service.services</field>
+        <field name="arch" type="xml">
+            <form >
+            <header>
+                <button name="status_borrador" string="Cambiar a Borrador" class="btn btn-warning" type="object" attrs="{'invisible': ['|', ('state','=','borrador'), ('state','=','realizado')]}"/>
+                <button name="status_confirmar" string="Confirmar" class="btn btn-success" type="object" attrs="{'invisible': ['|', '|', ('state','=','confirmado'), ('state','=','realizado'), ('state','=','cancelado')]}"/>
+                <button name="status_realizar" string="Finalizar" class="btn btn-success" type="object" attrs="{'invisible': ['|', '|', ('state','=','borrador'), ('state','=','cancelado'), ('state','=','realizado')]}"/>
+                <button name="status_cancelar" string="Cancelar" class="btn btn-warning" type="object" attrs="{'invisible': ['|', '|', ('state','=','borrador'), ('state','=','confirmado'), ('state','=','cancelado')]}"/>
+                <field name="state" widget="statusbar" statusbar_visible="borrador,confirmado,realizado,cancelado"/>
+            </header>
+                <sheet string="Services">
+                    <div class="oe_button_box" name="button_box">
+                         <button class="oe_stat_button" type="object" name="act_show_sales" icon="fa-usd">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_ventas" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </span>
+                                <span class="o_stat_text">Ventas</span>
+                            </div>
+                        </button>
+                        <button class="oe_stat_button" type="object" name="act_show_purchases" icon="fa-usd" attrs="{'invisible': [('outsourced_service','=',False)]}">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_purchases" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </span>
+                                <span class="o_stat_text">Compras</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div>
+                        <h2>
+                            <field name="name" decoration-bf="name"/>
+                            <field name="label_service" placeholder="Nombre del Servicio"/>
+                        </h2>
+                    </div>
+                    <group>
+                        <field name="outsourced_service" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                        <field name="customer" attrs="{'readonly':[('state','!=','borrador')]}" />
+                        <field name="state_document" invisible="True"/>
+                        <field name="state_inv_p" invisible="True"/>
+                        <field name="state_inv_s" invisible="True"/>
+                    </group>
+                    <notebook>       
+                        <page string="Detalle"> 
+                            <group>
+                                <group string="Fechas">
+                                    <field name="date_start" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    <field name="date_stop" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    
+                                </group>
+                                <group string="Direcciones">
+                                    <field name="location_load" widget='many2many_tags' attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    <field name="location_download" widget='many2many_tags' attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                </group>
+                                <group string="Chofer tercerizado" attrs="{'invisible': [('outsourced_service','!=',True)]}">
+                                    <field name="employee_third" domain="[('pertenece_a','=',provider)]" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    <field name="fleet_third" domain="[('pertenece_a','=',provider)]" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    <field name="fleet_add_third" domain="[('pertenece_a','=',provider)]" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                </group>
+                                <group string="Asignaciones" attrs="{'invisible': [('outsourced_service','=',True)]}">
+                                    <field name="employee" widget="many2many_tags" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    <field name="fleet" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    <field name="fleet_add" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                </group>
+                                <group string="Odometro" attrs="{'invisible': [('outsourced_service','=',True)]}">
+                                    <field name="odo_start" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    <field name="odo_end" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    <field name="odo_total"/>
+                                </group>
+                                <group string="Proveedor" attrs="{'invisible': [('outsourced_service','!=',True)]}">
+                                    <field name="provider" attrs="{'invisible': [('outsourced_service','=',False)], 'readonly':[('state','!=','borrador')]}" />
+                                </group>
+                            </group>
+                            <div>
+                                <field name="nota" placeholder="Nota..." attrs="{'readonly':[('state','!=','borrador')]}"/>
+                            </div>
+                        </page>
+                        <page string="Documents">
+                            <group string="Remitos">
+                                <field name="n_ref" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                <field name="lst_documents">
+                                    <tree editable="buttom">
+                                        <field name="name" string="N° Documento"/>
+                                        <field name="n_ref" string="N° Ref" invisible="True"/>
+                                        <field name="url_document" string="URL" widget="url"/> 
+                                        <field name="comentario"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <!-- <group string="Documentacion Solicidada">
+                                <field name="requirements_ids" widget="many2many_checkboxes" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                            </group> -->
+                        </page>
+                        <page string="Costos">
+                            <group>
+                                <field name="costos_ids">
+                                    <tree editable="buttom">
+                                        <field name="name" string="Viaticos"/>
+                                        <field name="employee"/>
+                                        <field name="qty"/>
+                                        <field name="valor"/> 
+                                        <field name="total"/> 
+                                        <field name="ref_services" invisible="True"/> 
+                                    </tree>
+                                </field>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right" colspan="2">
+                                <field name="total_ventas" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            
+
+                        </page>
+                        
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_tms_services" model="ir.actions.act_window">
+        <field name="name">Services</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.services</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create First Service !
+            </p>
+        </field>
+    </record>
+
+
+    <record id="tms_services_tree_document" model="ir.ui.view">
+        <field name="name">tms.services.tree</field>
+        <field name="model">service.documents</field>
+        <field name="arch" type="xml">
+            <tree string="Documents List">
+                <field name="name"/>
+                <field name="n_ref"/>
+                <field name="ref_services"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_tms_services_documents" model="ir.actions.act_window">
+        <field name="name">Services Documents</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.documents</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Create your First Document !
+            </p>
+        </field>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+
+<!-- VISTA places -->
+
+    <record id="tms_service_places_tree" model="ir.ui.view">
+        <field name="name">tms.service.places.tree</field>
+        <field name="model">service.places</field>
+        <field name="arch" type="xml">
+            <tree string="Lista de Lugares">
+                <field name="name"/>
+                <field name="url_googlemaps" widget="url"/> 
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Formulario -->
+    <record id="tms_service_places_form" model="ir.ui.view">
+        <field name="name">tms.service.places.form</field>
+        <field name="model">service.places</field>
+        <field name="arch" type="xml">
+            <form string="PlaLugaresces">
+                <sheet string="Lugares">
+                    <group>
+                        <field name="name"/>
+                        <field name="url_googlemaps" widget="url"/> 
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_tms_service_places" model="ir.actions.act_window">
+        <field name="name">Lugares</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">service.places</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create City !
+            </p>
+        </field>
+    </record>
+
+
+<!-- VISTA REQUERIMIENTOS -->
+
+    <record id="tms_requirement_document_service_tree" model="ir.ui.view">
+        <field name="name">tms.requirement.document.service.tree</field>
+        <field name="model">requirement.document.service</field>
+        <field name="arch" type="xml">
+            <tree string="Lista de Requisitos">
+                <field name="name"/>          
+            </tree>
+        </field>
+    </record>
+
+    <record id="tms_requirement_document_service_form" model="ir.ui.view">
+        <field name="name">tms.requirement.document.service.form</field>
+        <field name="model">requirement.document.service</field>
+        <field name="arch" type="xml">
+            <form string="Requisitos">
+                <sheet string="Requisitos">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_tms_requirement_document_service" model="ir.actions.act_window">
+        <field name="name">Requisitos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">requirement.document.service</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear Requisitos !
+            </p>
+        </field>
+    </record>
+
+
+
+<!-- VISTA tipo de flota -->
+
+    <record id="tms_type_fleet_services_tree" model="ir.ui.view">
+        <field name="name">tms.type.fleet.services.tree</field>
+        <field name="model">type.fleet.services</field>
+        <field name="arch" type="xml">
+            <tree string="Lista de Tipo de Flota">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Formulario -->
+    <record id="tms_type_fleet_services_form" model="ir.ui.view">
+        <field name="name">tms.type.fleet.services.form</field>
+        <field name="model">type.fleet.services</field>
+        <field name="arch" type="xml">
+            <form string="Tipo de Flota">
+                <sheet string="Tipo de Flota">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_tms_type_fleet_services" model="ir.actions.act_window">
+        <field name="name">Tipo de Flota</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">type.fleet.services</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create Tipo de Flota !
+            </p>
+        </field>
+    </record>
+
+
+<!-- TARIFAS -->
+
+
+    <record id="tms_employee_services_sueldos_tarifas_tree" model="ir.ui.view">
+        <field name="name">sueldos.tarifas.employee.services.tree</field>
+        <field name="model">sueldos.tarifas.employee.services</field>
+        <field name="arch" type="xml">
+            <tree string="Tarifas">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="tms_employee_services_sueldos_tarifas_form" model="ir.ui.view">
+        <field name="name">sueldos.tarifas.employee.services.form</field>
+        <field name="model">sueldos.tarifas.employee.services</field>
+        <field name="arch" type="xml">
+            <form >
+                <sheet string="Tarifas"> 
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>  
+                    <group string="Vencimientos">
+                    <field name="lista_tarifas" nolabel="1">
+                        <tree editable="buttom">
+                            <field name="name" invisible="True"/>
+                            <field name="date_start"/>
+                            <field name="date_stop"/>
+                            <field name="tarifa"/>
+                        </tree>
+                    </field>
+                    </group>            
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_employee_services_sueldos_tarifas" model="ir.actions.act_window">
+        <field name="name">Sueldos</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sueldos.tarifas.employee.services</field>
+        <!-- <field name="view_type">form</field> -->
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear nueva Tarifa !
+            </p>
+        </field>
+    </record>
+
+
+
+</odoo>
