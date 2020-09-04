@@ -24,15 +24,12 @@
 
                 <sheet string="Empleados">
                     <div class="oe_button_box" name="button_box">
-                        <button name="return_action_to_open_libro_mayor"
-                            type="object"
-                            class="oe_stat_button"
-                            icon="fa-pencil-square-o"
-                            context="{'xml_id':'action_account_moves_ledger_general'}"
-                            help="Visualiza el estado de cuenta del empleado actual">
-                            <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_text">Cuenta
+                        <button class="oe_stat_button" type="object" icon="fa-usd">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="total_cuenta" widget='monetary' options="{'currency_field': 'currency_id'}"/>
                                 </span>
+                                <span class="o_stat_text">Estado</span>
                             </div>
                         </button>
                         <button name="return_action_to_open_transferencia"
@@ -42,7 +39,7 @@
                             context="{'xml_id':'action_account_payments_transfer'}"
                             help="Visualiza las transferencias o depósitos hechos al empleado">
                             <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_text">Pagos
+                                <span class="o_stat_text">Transferencias
                                 </span>
                             </div>
                         </button>
@@ -71,11 +68,11 @@
                         <button name="return_action_to_open"
                             type="object"
                             class="oe_stat_button"
-                            icon="fa-history"
+                            icon="fa-file"
                             context="{'xml_id':'action_sueldos_employee_services'}"
                             help="Muestra los servicios mensuales por empleado (Recibo de Sueldo)">
                             <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_text">Servicios Mensuales
+                                <span class="o_stat_text">Sueldos
                                 </span>
                             </div>
                         </button>
@@ -107,7 +104,18 @@
                             <group string="Documentos">
                                 <!-- <field name=""/> -->
                             </group>
-                        </page>                    
+                        </page> 
+                        <page string="Cuentas">
+                            <field name="cuenta_analitica_ids">
+                                <tree editable="buttom" limit="20" decoration-bf="name" decoration-danger="credit &gt; 0" decoration-info="debit &gt; 0">
+                                    <field name="date"/>
+                                    <field name="move_id"/>
+                                    <field name="name"/>
+                                    <field name="debit" string="Deposito"/>
+                                    <field name="credit" string="Gasto"/>
+                                </tree>
+                            </field>
+                        </page>                   
                     </notebook>
                 </sheet>
             </form>

@@ -27,6 +27,29 @@ class employeeService(models.Model):
     ref_diario = fields.Many2one('account.journal', string='Diario')
     label_cuenta = fields.Char(string="Label Cuenta Analítica")
 
+    cuenta_analitica_ids = fields.Many2many('account.move.line', compute="_compute_data",string="Cuenta Empleado")
+    total_cuenta = fields.Float(string="Saldo", compute="_compute_total_account")
+
+
+    @api.depends('ref_diario')
+    def _compute_data(self):
+        # Definimos el dominio con el cual queremos filtrar los datos que vamos a traer de la clase service.services
+        account_journal_domain = [
+            ('journal_id', 'in', self.ref_diario.ids),
+            ('account_id', 'in', self.ref_diario.default_debit_account_id.ids),
+        ]
+        # Traemos los servicios de dicha clase y los ordenamos por los valores que querramos, en caso de querer ordenar por mas valores, seguir con una coma ingresar el campo y el orden
+        account_journal = self.env['account.move.line'].search(account_journal_domain, order='date desc')
+        self.cuenta_analitica_ids = account_journal
+
+    def _compute_total_account(self):
+        credit = 0
+        debit = 0
+        for linea in self.cuenta_analitica_ids:
+            credit += linea.credit
+            debit += linea.debit
+        self.total_cuenta = debit - credit
+
     @api.onchange('ref_diario')
     def _get_label_cuenta(self):
         self.label_cuenta = self.ref_diario.default_debit_account_id.name
@@ -58,17 +81,17 @@ class employeeService(models.Model):
             return res
         return False
 
-    def return_action_to_open_libro_mayor(self):
-        self.ensure_one()
-        xml_id = self.env.context.get('xml_id')
-        if xml_id:
-            res = self.env['ir.actions.act_window'].for_xml_id('account', xml_id)
-            res.update(
-                context=dict(self.env.context, default_journal_id=self.ref_diario.id, group_by=False),
-                domain=[('journal_id', '=', self.ref_diario.id)]
-                )
-            return res
-        return False
+    # def return_action_to_open_libro_mayor(self):
+    #     self.ensure_one()
+    #     xml_id = self.env.context.get('xml_id')
+    #     if xml_id:
+    #         res = self.env['ir.actions.act_window'].for_xml_id('account', xml_id)
+    #         res.update(
+    #             context=dict(self.env.context, default_journal_id=self.ref_diario.id, group_by=False),
+    #             domain=[('journal_id', '=', self.ref_diario.id)]
+    #             )
+    #         return res
+    #     return False
 
     def return_action_to_open_transferencia(self):
         self.ensure_one()
