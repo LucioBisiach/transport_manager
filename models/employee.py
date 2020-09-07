@@ -193,3 +193,7 @@ class sueldosEmployee(models.Model):
                         if costos.name.code == '4.2.4':
                             self.qty_viatico_km += costos.qty
                             self.tot_viatico_km += costos.total
+
+
+
+

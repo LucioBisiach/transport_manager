@@ -2,14 +2,19 @@
     <!-- Menu elements -->
     <menuitem id="tms_root" name="TMS" sequence="0"/>
 
-        <menuitem id="tms_menu_services" name="Servicios" parent="tms_root" sequence="0"/>
+        <menuitem id="tms_menu_dashboard" name="Dashboard" parent="tms_root" sequence="0"/>
+
+            <menuitem id="tms_menu_dashboard_finanzas" name="Finanzas" parent="tms_menu_dashboard" action="tms_finanzas_dashboard"/>
+
+
+        <menuitem id="tms_menu_services" name="Servicios" parent="tms_root" sequence="1"/>
 
             <menuitem id="tms_action_services" name="Lista de Servicios" parent="tms_menu_services" action="action_tms_services" />
 
             <menuitem id="tms_action_services_document" name="Documentos del Servicios" parent="tms_menu_services" action="action_tms_services_documents" />
 
 
-        <menuitem id="tms_menu_services_empleados" name="Empleados" parent="tms_root" sequence="1"/>
+        <menuitem id="tms_menu_services_empleados" name="Empleados" parent="tms_root" sequence="2"/>
 
             <menuitem id="tms_menu_services_empleados_label" name="Propios" parent="tms_menu_services_empleados"/>
 
@@ -23,7 +28,7 @@
                 <menuitem id="tms_action_services_third_employee" name="Chofer Tercerizado" parent="tms_menu_services_empleados_third_label" action="action_third_employee_services" />
 
 
-        <menuitem id="tms_menu_services_flota" name="Flota" parent="tms_root" sequence="2"/>
+        <menuitem id="tms_menu_services_flota" name="Flota" parent="tms_root" sequence="3"/>
 
             <menuitem id="tms_menu_services_flota_label" name="Propios" parent="tms_menu_services_flota"/>
 
@@ -35,7 +40,7 @@
 
 
 
-        <menuitem id="tms_menu_services_config" name="Configuración" parent="tms_root" sequence="5"/>
+        <menuitem id="tms_menu_services_config" name="Configuración" parent="tms_root" sequence="4"/>
 
             <menuitem id="tms_label_setting_servicios" name="Servicios" parent="tms_menu_services_config" />
 

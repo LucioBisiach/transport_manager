@@ -8,7 +8,7 @@
     'author': 'Bisiach Lucio',
     'maintainer': 'Bisiach Lucio',
     'website': 'N/A',
-    'depends': ['sale_management', 'purchase', 'base', 'account_payment', 'fleet', 'om_account_accountant', 'stock'],
+    'depends': ['sale_management', 'purchase', 'base', 'account_payment', 'fleet', 'om_account_accountant', 'stock', 'board'],
     'demo': [],
     'data': [
 
@@ -19,6 +19,9 @@
         #Security
         'security/ir.model.access.csv',
     
+        #Dashboard
+        'views/dashboard.xml',
+        
         # Services
         'views/service/service.xml',
 
