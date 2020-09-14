@@ -87,12 +87,32 @@ class services(models.Model):
     costos_ids = fields.One2many('costos.services', 'ref_services', ondelete="cascade")
     gastos_ids = fields.One2many('account.move', 'ref_gasto_service', context={'default_type': 'in_invoice', 'default_es_gasto': True})
 
+    total_gastos = fields.Float(string="Total Gastos", compute="get_total_gastos")
     total_costos = fields.Float(string="Total Costos", compute="get_total_costos")
+
+    total_adicional = fields.Float(string="Extra", default=0)
+
+    residual = fields.Float(string="Resiual", compute="get_residual")
+
+    @api.onchange('gastos_ids')
+    def get_total_gastos(self):
+        if len(self.gastos_ids) > 0:
+            for obj in self.gastos_ids:
+                self.total_gastos += obj.amount_total
+        else:
+            self.total_gastos = 0
 
     @api.onchange('costos_ids')
     def get_total_costos(self):
-        for obj in self.costos_ids:
-            self.total_costos += obj.total
+        if len(self.costos_ids) > 0:
+            for obj in self.costos_ids:
+                self.total_costos += obj.total
+        else:
+            self.total_costos = 0
+
+    @api.depends('total_costos','total_gastos', 'total_ventas', 'total_purchases', 'total_adicional')
+    def get_residual(self):
+        self.residual = self.total_ventas - (self.total_costos + self.total_gastos + self.total_adicional + self.total_purchases)
 
     #Crear secuencia de los servicios.
     @api.model

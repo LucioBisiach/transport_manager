@@ -146,8 +146,13 @@
                             </group>
                             <group class="oe_subtotal_footer oe_right" colspan="2">
                                 <field name="total_ventas" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_purchases" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                 <field name="total_costos" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_gastos" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="total_adicional" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="residual" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_subtotal_footer_separator"/>                               
                             </group>
+
                         </page>
                     </notebook>
                 </sheet>
