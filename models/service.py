@@ -68,17 +68,17 @@ class services(models.Model):
 
     # Relacion con documentos del servicio
     lst_documents = fields.One2many('service.documents', 'ref_services', string="Documentos", ondelete="cascade")
-    state_document = fields.Boolean(default=False, string="Estado de Documentos", invisible=True)
+    state_document = fields.Boolean(default=False, string="Estado de Documentos", invisible=True, store=True)
 
     # Relacion con compras
     purchase_orders_ids = fields.One2many('purchase.order', 'service_id', string="Compras")
     total_purchases = fields.Integer(compute='_get_total_purchases', store=False)
-    state_inv_p = fields.Boolean(compute="_state_fa_c", string="Estado FA Compra")
+    state_inv_p = fields.Boolean(compute="_state_fa_c", string="Estado FA Compra", store=True)
 
     # Relacion con ventas
     sale_order_ids = fields.One2many('sale.order', 'service_id', 'Ventas')
     total_ventas = fields.Integer(compute='_get_total_ventas', store=False) 
-    state_inv_s = fields.Boolean(compute="_state_fa_v", default=False, string="Estado FA Venta")
+    state_inv_s = fields.Boolean(compute="_state_fa_v", default=False, string="Estado FA Venta", store=True)
 
     # Documentacion requerida para el viaje correspondiente
     requirements_ids = fields.Many2many('requirement.document.service', string="Requisitos")
@@ -124,13 +124,13 @@ class services(models.Model):
         return result
 
     def _get_total_ventas(self):
-        self.total_ventas = sum(order.amount_total for order in self.sale_order_ids.filtered(lambda s: s.state in ('sale')))
+        self.total_ventas = sum(order.amount_untaxed for order in self.sale_order_ids.filtered(lambda s: s.state in ('sale')))
         
 
     @api.depends('outsourced_service')
     def _get_total_purchases(self):
         if self.outsourced_service == True:
-            self.total_purchases = sum(order.amount_total for order in self.purchase_orders_ids.filtered(lambda s: s.state in ('purchase')))
+            self.total_purchases = sum(order.amount_untaxed for order in self.purchase_orders_ids.filtered(lambda s: s.state in ('purchase')))
         else: 
             self.total_purchases = 0
 
