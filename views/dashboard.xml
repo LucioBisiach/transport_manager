@@ -1,13 +1,11 @@
 <?xml version="1.0"?>
 <odoo>
-
     <record id="act_invoice_no_payment" model="ir.actions.act_window">
         <field name="name">Facturas No Pagadas</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('type', '=', 'out_invoice'),('amount_residual_signed', '!=','0')]</field>
     </record>
-
     <record id="act_own_check_handed" model="ir.actions.act_window">
         <field name="name">Cheques Propios</field>
         <field name="res_model">account.check</field>
@@ -15,18 +13,29 @@
         <field name="domain">[('type','=','issue_check'), ('dias_restantes','&lt;=','7'),('state','=','handed')]</field>
         <field name="context">{'search_default_state':'handed','default_type':'issue_check'}</field>
     </record>
-
+    <record id="act_third_check_handed" model="ir.actions.act_window">
+        <field name="name">Cheques Terceros</field>
+        <field name="res_model">account.check</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type','=','third_check'), ('dias_restantes','&lt;=','7'),('state','=','holding')]</field>
+        <field name="context">{'search_default_state':'holding','default_type':'third_check'}</field>
+    </record>
     <record id="dashboard_form_view" model="ir.ui.view">
         <field name="name">Dashboard Form</field>
         <field name="model">board.board</field>
         <field name="type">form</field>
         <field name="arch" type="xml">
             <form string="Dashboard">
-                <board style="1-2">
-                    <column>
+                <board style="1-1-1">
+                    <column string="Cheques">
                         <action
                             string="Cheques Propios"
                             name="%(transport_manager.act_own_check_handed)d"/>
+                        <action
+                            string="Cheques Terceros"
+                            name="%(transport_manager.act_third_check_handed)d"/>
+                    </column>
+                    <column>
                     </column>
                     <column>
                         <action
@@ -36,8 +45,7 @@
                 </board>
             </form>
         </field>
-    </record> 
-
+    </record>
     <record id="tms_finanzas_dashboard" model="ir.actions.act_window">
         <field name="name">Dashboard</field>
         <field name="res_model">board.board</field>
@@ -45,5 +53,4 @@
         <field name="usage">menu</field>
         <field name="view_id" ref="dashboard_form_view"/>
     </record>
-
 </odoo>
