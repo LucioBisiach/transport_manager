@@ -8,19 +8,11 @@
         <field name="domain">[('type', '=', 'out_invoice'),('amount_residual_signed', '!=','0')]</field>
     </record>
 
-    <record id="act_third_check_handed" model="ir.actions.act_window">
-        <field name="name">Cheques Terceros</field>
-        <field name="res_model">account.check</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('type','=','third_check'), ('dias_restantes','&lt;','7')]</field>
-        <field name="context">{'search_default_state':'holding','default_type':'third_check'}</field>
-    </record>
-
     <record id="act_own_check_handed" model="ir.actions.act_window">
         <field name="name">Cheques Propios</field>
         <field name="res_model">account.check</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('type','=','issue_check'), ('dias_restantes','&lt;','7')]</field>
+        <field name="domain">[('type','=','issue_check'), ('dias_restantes','&lt;=','7'),('state','=','handed')]</field>
         <field name="context">{'search_default_state':'handed','default_type':'issue_check'}</field>
     </record>
 
@@ -35,9 +27,6 @@
                         <action
                             string="Cheques Propios"
                             name="%(transport_manager.act_own_check_handed)d"/>
-                        <action
-                            string="Cheques Propios"
-                            name="%(transport_manager.act_third_check_handed)d"/>
                     </column>
                     <column>
                         <action

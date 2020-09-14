@@ -85,6 +85,14 @@ class services(models.Model):
 
     # Relacion con Costos
     costos_ids = fields.One2many('costos.services', 'ref_services', ondelete="cascade")
+    gastos_ids = fields.One2many('account.move', 'ref_gasto_service', context={'default_type': 'in_invoice', 'default_es_gasto': True})
+
+    total_costos = fields.Float(string="Total Costos", compute="get_total_costos")
+
+    @api.onchange('costos_ids')
+    def get_total_costos(self):
+        for obj in self.costos_ids:
+            self.total_costos += obj.total
 
     #Crear secuencia de los servicios.
     @api.model
@@ -211,6 +219,11 @@ class services(models.Model):
             if flag == True:
                 state_s.state_inv_s = False
 
+
+class gastoEmployeeInService(models.Model):
+    _inherit = 'account.move'
+
+    ref_gasto_service = fields.Many2one('service.services', string='Gastos')
 
 
 class DocumentsService(models.Model):

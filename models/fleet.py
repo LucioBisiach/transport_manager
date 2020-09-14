@@ -32,6 +32,9 @@ class fleetService(models.Model):
             return res
         return False
 
+
+
+
 class odometerFleetService(models.Model):
     _name = 'odometer.fleet.service'
 
