@@ -81,6 +81,9 @@
                         <h2>
                             <field name="name" decoration-bf="name"/>
                         </h2>
+                        <h4>
+                            <field name="ref_user" decoration-bf="ref_user" placeholder="Contacto relacionado"/>
+                        </h4>
                     </div>
                     <notebook>
                         <page string="Datos Personales">

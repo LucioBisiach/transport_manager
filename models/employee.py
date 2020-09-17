@@ -30,6 +30,8 @@ class employeeService(models.Model):
     cuenta_analitica_ids = fields.Many2many('account.move.line', compute="_compute_data",string="Cuenta Empleado")
     total_cuenta = fields.Float(string="Saldo", compute="_compute_total_account")
 
+    ref_user = fields.Many2one('res.partner', string="Contacto Relacionado")
+
 
     @api.depends('ref_diario')
     def _compute_data(self):
