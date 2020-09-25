@@ -153,14 +153,14 @@ class sueldosEmployee(models.Model):
     date_start = fields.Date(string='Inicio')
     date_stop = fields.Date(string='Fin')
     employee = fields.Many2one('employee.services', string='Empleado')
-    qty_viatico_comida = fields.Float(string="Comida", compute="_get_viaticos")
-    qty_viatico_especial = fields.Float(string="V. Especial", compute="_get_viaticos")
-    qty_viatico_km = fields.Float(string="Km", compute="_get_viaticos")
+    # qty_viatico_comida = fields.Float(string="Comida", compute="_get_viaticos")
+    # qty_viatico_especial = fields.Float(string="V. Especial", compute="_get_viaticos")
+    # qty_viatico_km = fields.Float(string="Km", compute="_get_viaticos")
     
 
-    tot_viatico_comida = fields.Float(compute="_get_viaticos")
-    tot_viatico_especial = fields.Float(compute="_get_viaticos")
-    tot_viatico_km = fields.Float(compute="_get_viaticos")
+    # tot_viatico_comida = fields.Float(compute="_get_viaticos")
+    # tot_viatico_especial = fields.Float(compute="_get_viaticos")
+    # tot_viatico_km = fields.Float(compute="_get_viaticos")
 
 
     lista_servicios = fields.Many2many('service.services', compute="_compute_data",string="Servicios")
@@ -178,23 +178,23 @@ class sueldosEmployee(models.Model):
         servicios = self.env['service.services'].search(servicios_domain, order='date_start asc')
         self.lista_servicios = servicios
 
-    def _get_viaticos(self):
-        if len(self.lista_servicios) == 0:
-            self.viatico_comida = 0
-        else:
-            for obj in self.lista_servicios:
-                for costos in obj.costos_ids:
-                    if costos.employee.ids == self.employee.ids:
-                        _logger.info("Estoy Aca: %s", costos.valor) 
-                        if costos.name.code == '4.1.12':
-                            self.qty_viatico_comida += costos.qty
-                            self.tot_viatico_comida += costos.total
-                        if costos.name.code == '4.1.13':
-                            self.qty_viatico_especial += costos.qty
-                            self.tot_viatico_especial += costos.total
-                        if costos.name.code == '4.2.4':
-                            self.qty_viatico_km += costos.qty
-                            self.tot_viatico_km += costos.total
+    # def _get_viaticos(self):
+    #     if len(self.lista_servicios) == 0:
+    #         self.viatico_comida = 0
+    #     else:
+    #         for obj in self.lista_servicios:
+    #             for costos in obj.costos_ids:
+    #                 if costos.employee.ids == self.employee.ids:
+    #                     _logger.info("Estoy Aca: %s", costos.valor) 
+    #                     if costos.name.code == '4.1.12':
+    #                         self.qty_viatico_comida += costos.qty
+    #                         self.tot_viatico_comida += costos.total
+    #                     if costos.name.code == '4.1.13':
+    #                         self.qty_viatico_especial += costos.qty
+    #                         self.tot_viatico_especial += costos.total
+    #                     if costos.name.code == '4.2.4':
+    #                         self.qty_viatico_km += costos.qty
+    #                         self.tot_viatico_km += costos.total
 
 
 

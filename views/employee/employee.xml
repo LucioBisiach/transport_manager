@@ -244,10 +244,12 @@
                                 <field name="customer"/>
                                 <field name="date_start"/>
                                 <field name="date_stop"/>
+                                <field name="location_load"/>
+                                <field name="location_download"/>
                             </tree>
                         </field>
                     </group>
-                    <group class="oe_subtotal_footer oe_right" colspan="6">
+                    <!-- <group class="oe_subtotal_footer oe_right" colspan="6">
                         <group class="oe_subtotal_footer oe_right" colspan="4" >
                             <field name="tot_viatico_comida" string="Tot"/>
                             <field name="tot_viatico_especial" string="Tot"/>
@@ -258,7 +260,7 @@
                             <field name="qty_viatico_especial"/>
                             <field name="qty_viatico_km"/>
                         </group>
-                    </group>
+                    </group> -->
                 </sheet>
             </form>
         </field>

@@ -68,17 +68,17 @@ class services(models.Model):
 
     # Relacion con documentos del servicio
     lst_documents = fields.One2many('service.documents', 'ref_services', string="Documentos", ondelete="cascade")
-    state_document = fields.Boolean(default=False, string="Estado de Documentos", invisible=True, store=True)
+    state_document = fields.Boolean(default=False, string="Estado de Documentos", invisible=True)
 
     # Relacion con compras
     purchase_orders_ids = fields.One2many('purchase.order', 'service_id', string="Compras")
     total_purchases = fields.Integer(compute='_get_total_purchases', store=False)
-    state_inv_p = fields.Boolean(compute="_state_fa_c", string="Estado FA Compra", store=True)
+    state_inv_p = fields.Boolean(compute="_state_fa_c", string="Estado FA Compra")
 
     # Relacion con ventas
     sale_order_ids = fields.One2many('sale.order', 'service_id', 'Ventas')
     total_ventas = fields.Integer(compute='_get_total_ventas', store=False) 
-    state_inv_s = fields.Boolean(compute="_state_fa_v", default=False, string="Estado FA Venta", store=True)
+    state_inv_s = fields.Boolean(compute="_state_fa_v", default=False, string="Estado FA Venta")
 
     # Documentacion requerida para el viaje correspondiente
     requirements_ids = fields.Many2many('requirement.document.service', string="Requisitos")
