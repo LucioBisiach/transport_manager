@@ -15,6 +15,7 @@
         #Data
         'data/ir_sequence_data.xml',
         'data/data_requisitos.xml',
+        'data/ir_cron.xml',
 
         #Security
         'security/ir.model.access.csv',

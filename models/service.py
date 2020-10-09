@@ -202,6 +202,13 @@ class services(models.Model):
 
 
     #Estado de Facturación
+    def _get_state_all_invoice(self):
+        for obj in self:
+            if obj.state_document == True and obj.state_inv_s == True and obj.state_inv_p == True:
+                obj.state_invoice = True
+            else:
+                obj.state_invoice = False
+
 
     # Vemos si el servicio tiene remitos registrados, si es asi lo tomamos como un valor completo.
     @api.onchange('lst_documents')
