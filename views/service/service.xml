@@ -18,7 +18,8 @@
                 <field name="n_ref" string="N° Ref"/>
                 <field name="state_document" string="Doc"/>
                 <field name="state_inv_s" string="FA V"/>
-                <field name="state_inv_p" string="FA C"/>            
+                <field name="state_inv_p" string="FA C"/>
+		        <field name="state_invoice" invisible="True"/>
             </tree>
         </field>
     </record>
@@ -69,8 +70,9 @@
                         <field name="state_document" invisible="True"/>
                         <field name="state_inv_p" invisible="True"/>
                         <field name="state_inv_s" invisible="True"/>
+                        <field name="state_invoice" invisible="True"/>
                     </group>
-                    <notebook>       
+                    <notebook>
                         <page string="Detalle"> 
                             <group>
                                 <group string="Fechas">

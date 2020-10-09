@@ -94,6 +94,9 @@ class services(models.Model):
 
     residual = fields.Float(string="Resiual", compute="get_residual")
 
+    state_invoice = fields.Boolean(string="Estado Facturación", default=False)
+
+
     @api.onchange('gastos_ids')
     def get_total_gastos(self):
         if len(self.gastos_ids) > 0:
@@ -163,7 +166,6 @@ class services(models.Model):
             self.total_purchases = 0
 
 
-    
     def act_show_purchases(self):  
         action = self.env.ref('purchase.purchase_form_action')
 
@@ -207,6 +209,10 @@ class services(models.Model):
         for state_d in self:
             if len(state_d.lst_documents) >= 1:
                 state_d.state_document = True
+                if state_d.state_document == True and state_d.state_inv_s == True and state_d.state_inv_p == True:
+                    state_d.state_invoice = True
+                else:
+                    state_d.state_invoice = False
             else:
                 state_d.state_document = False
 
@@ -220,11 +226,20 @@ class services(models.Model):
                     if obj.invoice_count == 0:
                         flag = True
                     else:
-                        fact_c.state_inv_p = True           
+                        fact_c.state_inv_p = True
+                        if fact_c.state_document == True and fact_c.state_inv_s == True and fact_c.state_inv_p == True:
+                            fact_c.state_invoice = True
+                        else:
+                            fact_c.state_invoice = False         
                 if flag == True:
                     fact_c.state_inv_p = False
             else: 
                 fact_c.state_inv_p = True
+                if fact_c.state_document == True and fact_c.state_inv_s == True and fact_c.state_inv_p == True:
+                    fact_c.state_invoice = True
+                else:
+                    fact_c.state_invoice = False
+                
 
     # Estado de factura de venta
     def _state_fa_v(self):
@@ -236,6 +251,10 @@ class services(models.Model):
                     flag = True
                 else:
                     state_s.state_inv_s = True
+                    if state_s.state_document == True and state_s.state_inv_s == True and state_s.state_inv_p == True:
+                        state_s.state_invoice = True
+                    else:
+                        state_s.state_invoice = False
             if flag == True:
                 state_s.state_inv_s = False
 
