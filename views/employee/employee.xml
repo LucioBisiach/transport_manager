@@ -70,9 +70,10 @@
                             class="oe_stat_button"
                             icon="fa-file"
                             context="{'xml_id':'action_sueldos_employee_services'}"
-                            help="Muestra los servicios mensuales por empleado (Recibo de Sueldo)">
+                            help="Muestra los servicios mensuales por empleado (Recibo de Sueldo)"
+                            name="action_button_resumenes_mensuales">
                             <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_text">Sueldos
+                                <span class="o_stat_text">Res. Mensual
                                 </span>
                             </div>
                         </button>

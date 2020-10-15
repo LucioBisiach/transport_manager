@@ -22,6 +22,7 @@ class services(models.Model):
 
     # N° Referencia
     n_ref = fields.Char(string="N° de Referencia")
+    n_talonario = fields.Char(string="N° Talonario")
 
     # Fechas
     date_start = fields.Datetime(string="Fecha Inicio ", default=fields.Datetime.now, required=True)

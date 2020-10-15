@@ -109,7 +109,14 @@
                         </page>
                         <page string="Documents">
                             <group string="Remitos">
-                                <field name="n_ref" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                <group>
+                                    <group>
+                                        <field name="n_ref" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="n_talonario" attrs="{'readonly':[('state','!=','borrador')]}"/>
+                                    </group>
+                                </group>
                                 <field name="lst_documents">
                                     <tree editable="buttom">
                                         <field name="name" string="N° Documento"/>
