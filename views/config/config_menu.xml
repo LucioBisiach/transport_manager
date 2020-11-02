@@ -40,7 +40,7 @@
 
 
 
-        <menuitem id="tms_menu_services_config" name="Configuración" parent="tms_root" sequence="4"/>
+        <menuitem id="tms_menu_services_config" name="Configuración" parent="tms_root" sequence="7"/>
 
             <menuitem id="tms_label_setting_servicios" name="Servicios" parent="tms_menu_services_config" />
 

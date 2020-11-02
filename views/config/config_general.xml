@@ -2,7 +2,6 @@
 <odoo>
 
 
-
 <!-- VISTA places -->
 
     <record id="tms_service_places_tree" model="ir.ui.view">

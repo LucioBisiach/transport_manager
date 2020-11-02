@@ -70,8 +70,7 @@
                             class="oe_stat_button"
                             icon="fa-file"
                             context="{'xml_id':'action_sueldos_employee_services'}"
-                            help="Muestra los servicios mensuales por empleado (Recibo de Sueldo)"
-                            name="action_button_resumenes_mensuales">
+                            help="Muestra los servicios mensuales por empleado (Recibo de Sueldo)">
                             <div class="o_field_widget o_stat_info">
                                 <span class="o_stat_text">Res. Mensual
                                 </span>
@@ -109,7 +108,7 @@
                                 <!-- <field name=""/> -->
                             </group>
                         </page> 
-                        <page string="Cuentas">
+                        <page string="Cuentas" name="cuentas">
                             <field name="cuenta_analitica_ids">
                                 <tree editable="buttom" limit="20" decoration-bf="name" decoration-danger="credit &gt; 0" decoration-info="debit &gt; 0">
                                     <field name="date"/>
@@ -236,37 +235,39 @@
                         <field name="employee"/>
                         <field name="date_start"/>
                         <field name="date_stop"/>
-                        <button name="get_viaticos" string="Actualizar Viaticos" class="btn btn-warning" type="object"/>
+                    </group>
 
-                    </group>
-                    <group>
-                        <field name="lista_servicios" nolabel="1" >
-                            <tree string="Servicios" editable="buttom">
-                                <field name="name"/>
-                                <field name="label_service"/>
-                                <field name="customer"/>
-                                <field name="date_start"/>
-                                <field name="date_stop"/>
-                                <field name="location_load" widget="many2many_tags"/>
-                                <field name="location_download" widget="many2many_tags"/>
-                            </tree>
-                        </field>
-                    </group>
-                    <group class="oe_subtotal_footer oe_right" colspan="6">
-                        <group class="oe_subtotal_footer oe_right" colspan="4" >
-                            <field name="qty_viatico_comida"/>
-                            <field name="qty_viatico_especial"/>
-                            <field name="qty_viatico_km"/>
-                            <field name="qty_viatico_ccyd"/>
-                            <field name="qty_viatico_km_he"/>
-                            <field name="qty_viatico_he"/>
-                        </group>
-                    <!--    <group class="oe_subtotal_footer oe_right" colspan="2">
-                            <field name="qty_viatico_comida"/>
-                            <field name="qty_viatico_especial"/>
-                            <field name="qty_viatico_km"/>
-                        </group> -->
-                    </group>
+                    <notebook>
+                        <page name="servicios_realizados" string="Servicios">
+                            <button name="get_viaticos" string="Actualizar Viaticos" class="btn btn-warning" type="object"/>
+                            <group>
+                                <group string="Viatico Corta Distancia">
+                                    <field name="qty_viatico_comida"/>
+                                    <field name="qty_viatico_especial"/>
+                                    <field name="qty_viatico_he"/>
+                                </group>
+                                <group string="Viatico Larga Distancia">
+                                    <field name="qty_viatico_km"/>
+                                    <field name="qty_viatico_ccyd"/>
+                                    <field name="qty_viatico_km_he"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="lista_servicios" nolabel="1" >
+                                    <tree string="Servicios" editable="buttom">
+                                        <field name="name"/>
+                                        <field name="label_service"/>
+                                        <field name="customer"/>
+                                        <field name="date_start"/>
+                                        <field name="date_stop"/>
+                                        <field name="location_load" widget="many2many_tags"/>
+                                        <field name="location_download" widget="many2many_tags"/>
+                                        <field name="costos_ids" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

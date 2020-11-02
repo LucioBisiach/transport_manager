@@ -85,7 +85,7 @@ class services(models.Model):
     requirements_ids = fields.Many2many('requirement.document.service', string="Requisitos")
 
     # Relacion con Costos
-    costos_ids = fields.One2many('costos.services', 'ref_services', ondelete="cascade")
+    costos_ids = fields.One2many('costos.services', 'ref_services', ondelete="cascade", string="Viaticos")
     gastos_ids = fields.One2many('account.move', 'ref_gasto_service', context={'default_type': 'in_invoice', 'default_es_gasto': True})
 
     total_gastos = fields.Float(string="Total Gastos", compute="get_total_gastos")
@@ -97,6 +97,17 @@ class services(models.Model):
 
     state_invoice = fields.Boolean(string="Estado Facturación", default=False)
 
+    gasto_sin_contabilizar = fields.One2many('gastonocont.service.service', 'ref_services', string="Gastos sin contabilizar", ondelete="cascade")
+    total_gasto_sin_contabilizar = fields.Float(string="Tot Gasto S/Contabilizar", compute="get_total_gastos_no_contabilizado")
+
+
+    @api.onchange('gasto_sin_contabilizar')
+    def get_total_gastos_no_contabilizado(self):
+        if len(self.gasto_sin_contabilizar) > 0:
+            for obj in self.gasto_sin_contabilizar:
+                self.total_gasto_sin_contabilizar += obj.total
+        else:
+            self.total_gasto_sin_contabilizar = 0
 
     @api.onchange('gastos_ids')
     def get_total_gastos(self):
@@ -114,9 +125,9 @@ class services(models.Model):
         else:
             self.total_costos = 0
 
-    @api.depends('total_costos','total_gastos', 'total_ventas', 'total_purchases', 'total_adicional')
+    @api.depends('total_costos','total_gastos', 'total_ventas', 'total_purchases', 'total_adicional', 'total_gasto_sin_contabilizar')
     def get_residual(self):
-        self.residual = self.total_ventas - (self.total_costos + self.total_gastos + self.total_adicional + self.total_purchases)
+        self.residual = self.total_ventas - (self.total_costos + self.total_gastos + self.total_adicional + self.total_purchases + self.total_gasto_sin_contabilizar)
 
     #Crear secuencia de los servicios.
     @api.model
@@ -308,7 +319,21 @@ class costosService(models.Model):
                     obj.valor = rec.tarifa
                 
             obj.total = obj.qty * obj.valor
-    
 
+    class gastoSinContabilizarService(models.Model):
+
+        _name = 'gastonocont.service.service'
         
+        name = fields.Char(string="Descripción")
+
+        qty = fields.Float(string="Cantidad")
+        valor = fields.Float(string="Valor")
+        total = fields.Float(string="Total", compute="_get_total")
+    
+        ref_services = fields.Many2one('service.services', invisible=True)
+
+        @api.depends('valor', 'qty')
+        def _get_total(self):
+            for obj in self:
+                obj.total = obj.qty * obj.valor        
 
