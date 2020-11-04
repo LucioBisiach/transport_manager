@@ -85,7 +85,7 @@ class services(models.Model):
     requirements_ids = fields.Many2many('requirement.document.service', string="Requisitos")
 
     # Relacion con Costos
-    costos_ids = fields.One2many('costos.services', 'ref_services', ondelete="cascade", string="Viaticos")
+    costos_ids = fields.One2many('costos.services', 'ref_services', ondelete="cascade")
     gastos_ids = fields.One2many('account.move', 'ref_gasto_service', context={'default_type': 'in_invoice', 'default_es_gasto': True})
 
     total_gastos = fields.Float(string="Total Gastos", compute="get_total_gastos")

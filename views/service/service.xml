@@ -9,6 +9,7 @@
             <tree string="Lista de Servicios" decoration-danger="state_document==False or state_inv_s==False or state_inv_p==False" decoration-success="state_document==True and state_inv_s==True and state_inv_p==True" default_order="date_start desc, date_stop asc">
                 <field name="name" string="N° Servicio"/>
                 <field name="label_service"/>
+                <field name="employee"/>
                 <field name="customer"/>
                 <field name="provider"/>
                 <field name="location_load" widget="many2many_tags"/>
@@ -34,9 +35,9 @@
             <form >
             <header>
                 <button name="status_borrador" string="Cambiar a Borrador" class="btn btn-warning" type="object" attrs="{'invisible': ['|', ('state','=','borrador'), ('state','=','realizado')]}"/>
-                <button name="status_confirmar" string="Confirmar" class="btn btn-success" type="object" attrs="{'invisible': ['|', '|', ('state','=','confirmado'), ('state','=','realizado'), ('state','=','cancelado')]}"/>
-                <button name="status_realizar" string="Finalizar" class="btn btn-success" type="object" attrs="{'invisible': ['|', '|', ('state','=','borrador'), ('state','=','cancelado'), ('state','=','realizado')]}"/>
-                <button name="status_cancelar" string="Cancelar" class="btn btn-warning" type="object" attrs="{'invisible': ['|', '|', ('state','=','borrador'), ('state','=','confirmado'), ('state','=','cancelado')]}"/>
+                <button name="status_confirmar" icon="fa-thumbs-up" string="Confirmar" class="btn btn-success" type="object" attrs="{'invisible': ['|', '|', ('state','=','confirmado'), ('state','=','realizado'), ('state','=','cancelado')]}"/>
+                <button name="status_realizar" icon="fa-check-square-o"  string="Finalizar" class="btn btn-success" type="object" attrs="{'invisible': ['|', '|', ('state','=','borrador'), ('state','=','cancelado'), ('state','=','realizado')]}"/>
+                <button name="status_cancelar" icon="fa-reply" string="Cancelar" class="btn btn-warning" type="object" attrs="{'invisible': ['|', '|', ('state','=','borrador'), ('state','=','cancelado')]}"/>
                 <field name="state" widget="statusbar" statusbar_visible="borrador,confirmado,realizado,cancelado"/>
             </header>
                 <sheet string="Services">
